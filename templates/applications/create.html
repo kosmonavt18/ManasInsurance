@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Отправить заявку" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Отправить заявку" %}</h1>
+        <p class="section-subtitle">{% trans "Заполните форму, и менеджер свяжется с вами" %}</p>
+
+        <div class="form-card">
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-row" {% if field.name == 'tech_passport' %}data-auto-only="1"{% endif %}>
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.help_text %}<small class="helptext">{{ field.help_text }}</small>{% endif %}
+                        {% if field.errors %}{{ field.errors }}{% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">{% trans "Отправить" %}</button>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+(function() {
+    const typeField = document.getElementById('id_insurance_type');
+    const techRow = document.querySelector('[data-auto-only="1"]');
+    if (!typeField || !techRow) return;
+    const AUTO = ['osago', 'kasko', 'dsago'];
+    function toggle() {
+        techRow.style.display = AUTO.includes(typeField.value) ? '' : 'none';
+    }
+    typeField.addEventListener('change', toggle);
+    toggle();
+})();
+</script>
+{% endblock %}

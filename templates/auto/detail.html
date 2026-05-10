@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <a href="{% url 'auto:list' %}" class="muted">← {% trans "Все автопродукты" %}</a>
+        <h1 class="section-title">{{ product.title }}</h1>
+
+        <div style="margin:18px 0 28px;border-radius:14px;overflow:hidden;max-height:380px">
+            {% if product.kind == 'osago' %}
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% elif product.kind == 'kasko' %}
+                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% endif %}
+        </div>
+
+        <div class="about-block" style="margin-bottom:30px">
+            <p style="font-size:18px" class="muted">{{ product.short_description }}</p>
+            <p>{{ product.full_description|linebreaks }}</p>
+        </div>
+
+        {% if product.tariffs.all %}
+            <h2 class="section-title" style="font-size:24px">{% trans "Тарифы и цены" %}</h2>
+            <table class="tariff-table">
+                <thead><tr><th>{% trans "Параметр" %}</th><th>{% trans "Значение / цена" %}</th></tr></thead>
+                <tbody>
+                    {% for t in product.tariffs.all %}
+                        <tr><td>{{ t.label }}</td><td>{{ t.value }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        <div style="margin-top:30px;display:flex;gap:14px;flex-wrap:wrap">
+            <a href="{% url 'applications:create' %}?type={{ product.kind }}" class="btn btn-primary">{% trans "Оставить заявку" %}</a>
+            {% if product.has_calculator %}
+                {% if product.kind == 'osago' %}
+                    <a href="{% url 'calculators:osago' %}" class="btn btn-ghost">{% trans "Рассчитать ОСАГО" %}</a>
+                {% elif product.kind == 'kasko' %}
+                    <a href="{% url 'calculators:kasko' %}" class="btn btn-ghost">{% trans "Рассчитать КАСКО" %}</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

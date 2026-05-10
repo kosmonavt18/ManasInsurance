@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Калькуляторы" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Калькуляторы стоимости" %}</h1>
+        <p class="section-subtitle">{% trans "Узнайте цену полиса за 30 секунд" %}</p>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>🚗 ОСАГО</h3>
+                <p>{% trans "Обязательное страхование автогражданской ответственности." %}</p>
+                <a href="{% url 'calculators:osago' %}" class="btn btn-primary">{% trans "Открыть калькулятор" %}</a>
+            </div>
+            <div class="card">
+                <h3>🛡 КАСКО</h3>
+                <p>{% trans "Добровольное страхование вашего автомобиля." %}</p>
+                <a href="{% url 'calculators:kasko' %}" class="btn btn-primary">{% trans "Открыть калькулятор" %}</a>
+            </div>
+            <div class="card">
+                <h3>🏠 {% trans "Имущество" %}</h3>
+                <p>{% trans "Тарифы «Умный дом» и «Умный дом+»." %}</p>
+                <a href="{% url 'calculators:property' %}" class="btn btn-primary">{% trans "Открыть калькулятор" %}</a>
+            </div>
+            <div class="card">
+                <h3>✈️ {% trans "Путешествия" %}</h3>
+                <p>{% trans "Расчёт по дням, людям и зоне покрытия." %}</p>
+                <a href="{% url 'calculators:travel' %}" class="btn btn-primary">{% trans "Открыть калькулятор" %}</a>
+            </div>
+            <div class="card" style="border:2px solid #229ED9">
+                <h3>🤖 {% trans "Умный оценщик повреждений авто по фото" %}</h3>
+                <p>{% trans "Telegram-бот на базе ИИ: пришлите фото повреждённого авто и получите оценку ущерба за минуту." %}</p>
+                {% if user.is_authenticated %}
+                    <a href="https://t.me/cardamage312_bot" target="_blank" rel="noopener" class="btn btn-primary">{% trans "Открыть в Telegram" %}</a>
+                {% else %}
+                    <p class="muted" style="margin:8px 0">{% trans "Доступно после входа в личный кабинет." %}</p>
+                    <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-ghost">{% trans "Войти" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

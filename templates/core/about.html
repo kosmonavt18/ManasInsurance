@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "О нас" %} — {{ site.company_name }}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "О компании" %} {{ site.company_name }}</h1>
+        <div class="about-block">
+            <p style="font-size:18px">{{ site.about_short }}</p>
+            <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+            <p>{{ site.about_full|linebreaks }}</p>
+
+            <h3>{% trans "Наши достижения" %}</h3>
+            <div class="cards-grid">
+                <div class="card"><h3 class="accent">15+</h3><p>{% trans "лет на рынке" %}</p></div>
+                <div class="card"><h3 class="accent">50 000+</h3><p>{% trans "клиентов нам доверяют" %}</p></div>
+                <div class="card"><h3 class="accent">98%</h3><p>{% trans "выплаты в срок" %}</p></div>
+                <div class="card"><h3 class="accent">12</h3><p>{% trans "филиалов по стране" %}</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <a href="{% url 'clients:list' %}" class="muted">← {% trans "Все продукты" %}</a>
+        <h1 class="section-title">{{ product.title }}</h1>
+
+        <div style="margin:18px 0 28px;border-radius:14px;overflow:hidden;max-height:380px">
+            {% if product.kind == 'life' %}
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% elif product.kind == 'travel' %}
+                <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% elif product.kind == 'property' %}
+                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% elif product.kind == 'health' %}
+                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1400&q=70" alt="{{ product.title }}" style="width:100%;height:auto;display:block">
+            {% endif %}
+        </div>
+
+        <div class="about-block">
+            <p style="font-size:18px" class="muted">{{ product.short_description }}</p>
+            <p>{{ product.full_description|linebreaks }}</p>
+            <p><strong>{% trans "Цена:" %}</strong> {% trans "от" %} <span class="accent" style="font-size:24px;font-weight:700">{{ product.price_from }} сом</span></p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:14px">
+                <a href="{% url 'applications:create' %}?type={{ product.kind }}" class="btn btn-primary">{% trans "Оставить заявку" %}</a>
+                {% if product.kind == 'travel' %}
+                    <a href="{% url 'calculators:travel' %}" class="btn btn-ghost">{% trans "Калькулятор" %}</a>
+                {% elif product.kind == 'property' %}
+                    <a href="{% url 'calculators:property' %}" class="btn btn-ghost">{% trans "Калькулятор" %}</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if product.kind == 'travel' %}
+        <div class="about-block" style="margin-top:24px">
+            <h3>{% trans "Категории покрытия" %}</h3>
+            <table class="tariff-table">
+                <thead><tr><th>Категория</th><th>Лимит</th><th>Стоимость (7 дней / 1 чел.)</th></tr></thead>
+                <tbody>
+                    <tr><td>Весь мир, включая США и Канаду</td><td>до 50 000 USD</td><td>1 200 сом</td></tr>
+                    <tr><td>Весь мир, кроме США и Канады</td><td>до 10 000 USD</td><td>800 сом</td></tr>
+                    <tr><td>Шенгенская зона</td><td>до 30 000 EUR</td><td>500 сом</td></tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Контакты" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Контакты" %}</h1>
+        <p class="section-subtitle">{% trans "Свяжитесь с нами любым удобным способом" %}</p>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>{% trans "Главный офис" %}</h3>
+                <p><strong>{% trans "Адрес:" %}</strong> {{ site.address }}</p>
+                <p><strong>{% trans "Телефон:" %}</strong> {{ site.phone }}</p>
+                <p><strong>Email:</strong> {{ site.email }}</p>
+            </div>
+            <div class="card">
+                <h3>{% trans "Время работы" %}</h3>
+                <p>{% trans "Пн–Пт: 09:00 — 18:00" %}</p>
+                <p>{% trans "Сб: 10:00 — 14:00" %}</p>
+                <p>{% trans "Вс: выходной" %}</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:24px">
+            <h3>{% trans "Карта головного офиса" %}</h3>
+            <div style="border-radius:12px;overflow:hidden">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2925.7802742064305!2d74.57264901088926!3d42.835255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389ec9ea2ebf2faf%3A0xc262c9313a536c44!2z0KfRg9C50YHQutCw0Y8g0L7QsdC70LDRgdGC0YwsINCR0LjRiNC60LXQug!5e0!3m2!1sru!2skg!4v1778408505370!5m2!1sru!2skg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+
+        <h2 class="section-title" style="margin-top:50px">{% trans "Наши филиалы" %}</h2>
+        <div class="cards-grid">
+            {% for b in branches %}
+                <div class="card">
+                    <h3>{{ b.city }}</h3>
+                    <p>📍 {{ b.address }}</p>
+                    <p>📞 {{ b.phone }}</p>
+                    {% if b.email %}<p>✉ {{ b.email }}</p>{% endif %}
+                    {% if b.map_link %}<a href="{{ b.map_link }}" target="_blank" class="btn btn-ghost">{% trans "На карте" %}</a>{% endif %}
+                </div>
+            {% empty %}
+                <p class="muted">{% trans "Филиалы можно добавить через админ-панель." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

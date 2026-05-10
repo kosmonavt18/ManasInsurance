@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Страховой случай" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Что делать при страховом случае?" %}</h1>
+        <p class="section-subtitle">{% trans "Выберите тип страхования, чтобы узнать порядок действий" %}</p>
+        <div class="cards-grid">
+            {% for c in cases %}
+                <div class="card">
+                    <h3>{{ c.title }}</h3>
+                    <p>{{ c.description|truncatechars:130 }}</p>
+                    <a href="{% url 'core:case_detail' c.category %}" class="btn btn-primary">{% trans "Подробнее" %}</a>
+                </div>
+            {% empty %}
+                <p class="muted">{% trans "Случаи добавляются через админ-панель." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

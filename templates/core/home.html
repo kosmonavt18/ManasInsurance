@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ site.company_name }} — {% trans "Надёжное страхование в Кыргызстане" %}{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container">
+        <h1>{{ site.hero_title }} <span class="accent">{{ site.company_name }}</span></h1>
+        <p class="lead">{{ site.hero_subtitle }}</p>
+        <div>
+            <a href="{% url 'applications:create' %}" class="btn btn-primary">{% trans "Оставить заявку" %}</a>
+            <a href="{% url 'calculators:index' %}" class="btn btn-outline">{% trans "Рассчитать стоимость" %}</a>
+        </div>
+        <div class="badges">
+            <span class="badge">★ {% trans "15 лет на рынке" %}</span>
+            <span class="badge">★ {% trans "50 000+ клиентов" %}</span>
+            <span class="badge">★ {% trans "Выплаты за 3 дня" %}</span>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">{% trans "Кто мы?" %}</h2>
+        <p class="section-subtitle">{{ site.about_short }}</p>
+    </div>
+</section>
+
+<section class="section" style="padding-top:0">
+    <div class="container">
+        <h2 class="section-title">{% trans "Что мы страхуем?" %}</h2>
+        <p class="section-subtitle">{% trans "Полный спектр страховых услуг для вас и вашего бизнеса" %}</p>
+
+        <div class="two-col">
+            <div class="card">
+                <h3>👤 {% trans "Частным клиентам" %}</h3>
+                <ul class="service-list">
+                    {% for p in client_products %}
+                        <li><a href="{% url 'clients:detail' p.slug %}">{{ p.title }}</a></li>
+                    {% empty %}
+                        <li class="muted">{% trans "Скоро добавим" %}</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'clients:list' %}" class="btn btn-ghost" style="margin-top:14px">{% trans "Все услуги" %}</a>
+            </div>
+
+            <div class="card">
+                <h3>🏢 {% trans "Корпоративным клиентам" %}</h3>
+                <ul class="service-list">
+                    {% for p in corporate_products %}
+                        <li><a href="{% url 'corporate:detail' p.slug %}">{{ p.title }}</a></li>
+                    {% empty %}
+                        <li class="muted">{% trans "Скоро добавим" %}</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'corporate:list' %}" class="btn btn-ghost" style="margin-top:14px">{% trans "Все услуги" %}</a>
+            </div>
+        </div>
+
+        <div style="margin-top:24px" class="card">
+            <h3>🚗 {% trans "Автострахование" %}</h3>
+            <ul class="service-list">
+                {% for p in auto_products %}
+                    <li><a href="{% url 'auto:detail' p.slug %}">{{ p.title }}</a></li>
+                {% empty %}
+                    <li class="muted">{% trans "Скоро добавим" %}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'auto:list' %}" class="btn btn-ghost" style="margin-top:14px">{% trans "Все автопродукты" %}</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background:var(--white)">
+    <div class="container">
+        <h2 class="section-title">{% trans "О нас" %}</h2>
+        <div class="about-block">
+            <p>{{ site.about_short }}</p>
+            <a href="{% url 'core:about' %}" class="btn btn-primary">{% trans "Подробнее" %}</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="cards-grid">
+            <div class="card">
+                <h3>🧮 {% trans "Калькуляторы" %}</h3>
+                <p>{% trans "Рассчитайте стоимость полиса ОСАГО или КАСКО за 30 секунд." %}</p>
+                <a href="{% url 'calculators:index' %}" class="btn btn-primary">{% trans "Перейти" %}</a>
+            </div>
+            <div class="card">
+                <h3>🚨 {% trans "Страховой случай" %}</h3>
+                <p>{% trans "Что делать, если произошёл страховой случай. Инструкция по каждому виду страхования." %}</p>
+                <a href="{% url 'core:cases' %}" class="btn btn-primary">{% trans "Перейти" %}</a>
+            </div>
+            <div class="card">
+                <h3>📨 {% trans "Отправить заявку" %}</h3>
+                <p>{% trans "Заполните короткую форму, и наш менеджер свяжется с вами." %}</p>
+                <a href="{% url 'applications:create' %}" class="btn btn-primary">{% trans "Перейти" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

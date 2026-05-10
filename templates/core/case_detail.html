@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ case.title }}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <a href="{% url 'core:cases' %}" class="muted">← {% trans "К списку" %}</a>
+        <h1 class="section-title">{{ case.title }}</h1>
+        <div class="about-block">
+            <p>{{ case.description|linebreaks }}</p>
+            {% if case.phone_to_call %}<p><strong>{% trans "Звонить:" %}</strong> {{ case.phone_to_call }}</p>{% endif %}
+            <a href="{% url 'applications:create' %}" class="btn btn-primary">{% trans "Сообщить о случае" %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

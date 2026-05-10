@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <a href="{% url 'corporate:list' %}" class="muted">← {% trans "Все продукты" %}</a>
+        <h1 class="section-title">{{ product.title }}</h1>
+        <div class="about-block">
+            <p style="font-size:18px" class="muted">{{ product.short_description }}</p>
+            <p>{{ product.full_description|linebreaks }}</p>
+            <p><strong>{% trans "Цена:" %}</strong> {% trans "от" %} <span class="accent" style="font-size:24px;font-weight:700">{{ product.price_from }} сом</span></p>
+            <a href="{% url 'applications:create' %}" class="btn btn-primary">{% trans "Оставить заявку" %}</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Калькулятор КАСКО" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Калькулятор КАСКО" %}</h1>
+        <p class="section-subtitle">{% trans "Защита вашего автомобиля от любых рисков" %}</p>
+
+        <div class="form-card">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-row">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}{{ field.errors }}{% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">{% trans "Рассчитать" %}</button>
+            </form>
+
+            {% if result %}
+                <div class="result-card">
+                    <div class="muted" style="color:rgba(255,255,255,0.7)">{% trans "Стоимость полиса:" %}</div>
+                    <div class="price-big">{{ result.price }} {{ result.currency }}</div>
+                    <div class="breakdown">
+                        {% for k, v in result.breakdown.items %}
+                            <div class="breakdown-row"><span>{{ k }}</span><strong>{{ v }}</strong></div>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'applications:create' %}?type=kasko" class="btn btn-primary" style="margin-top:18px">{% trans "Оформить заявку" %}</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

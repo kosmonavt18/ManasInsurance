@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Автострахование" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Автострахование" %}</h1>
+        <p class="section-subtitle">{% trans "ОСАГО, КАСКО, ДСАГО и НС — всё для безопасности на дороге" %}</p>
+
+        <div style="margin:18px 0 28px;border-radius:14px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1400&q=70" alt="Автострахование" style="width:100%;height:320px;object-fit:cover;display:block">
+        </div>
+
+        <div class="about-block" style="margin-bottom:30px">
+            <p>Автострахование — это надёжная защита вашего автомобиля и финансовой
+            ответственности водителя. ОСАГО является обязательным для всех водителей
+            в Кыргызстане, КАСКО защищает ваше авто от любых повреждений, угона
+            и стихийных бедствий, а ДСАГО расширяет лимиты ответственности.</p>
+            <p>При ДТП наши специалисты помогут оформить документы, организуют
+            эвакуатор и проконтролируют все этапы выплаты страхового возмещения.</p>
+        </div>
+
+        <!-- Новая секция: дополнительные услуги, связанные со страхованием -->
+        <div class="services-block" style="margin-bottom:30px">
+            <h3>{% trans "Сопутствующие услуги" %}</h3>
+            <p>{% trans "Кроме классических авто-продуктов, мы также предлагаем услуги по страхованию имущества и путешествий. Перейдите по ссылкам, чтобы узнать подробнее или оформить заявку." %}</p>
+            <ul>
+                <li><a href="{% url 'applications:create' %}?type=property">{% trans "Страхование имущества" %}</a></li>
+                <li><a href="{% url 'applications:create' %}?type=travel">{% trans "Страхование путешествий" %}</a></li>
+            </ul>
+        </div>
+
+        <div class="cards-grid">
+            {% for p in products %}
+                <div class="card">
+                    {% if p.kind == 'osago' %}
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'kasko' %}
+                        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'dsago' %}
+                        <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% endif %}
+                    <h3>{{ p.title }}</h3>
+                    <p>{{ p.short_description }}</p>
+                    <div class="price">{% trans "От" %} <span class="accent">{{ p.price_from }} сом</span></div>
+                    <a href="{% url 'auto:detail' p.slug %}" class="btn btn-primary">{% trans "Подробнее" %}</a>
+                </div>
+            {% empty %}
+                <p class="muted">{% trans "Продукты добавляются в админ-панели." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

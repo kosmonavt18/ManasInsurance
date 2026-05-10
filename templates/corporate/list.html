@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Корпоративным клиентам" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Корпоративным клиентам" %}</h1>
+        <p class="section-subtitle">{% trans "Решения для бизнеса любого масштаба" %}</p>
+
+        <div style="margin:18px 0 28px;border-radius:14px;overflow:hidden">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=70" alt="Корпоративное страхование" style="width:100%;height:320px;object-fit:cover;display:block">
+        </div>
+
+        <div class="about-block" style="margin-bottom:30px">
+            <p>Мы предлагаем комплексные программы страхования для компаний любого
+            масштаба — от малого бизнеса до крупных корпораций. Защита имущества,
+            ДМС для сотрудников, страхование грузов, банковской деятельности и
+            гражданской ответственности.</p>
+        </div>
+
+        <div class="cards-grid">
+            {% for p in products %}
+                <div class="card">
+                    {% if p.kind == 'property' %}
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'dms' %}
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'bank' %}
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% endif %}
+                    <h3>{{ p.title }}</h3>
+                    <p>{{ p.short_description }}</p>
+                    <div class="price">{% trans "От" %} <span class="accent">{{ p.price_from }} сом</span></div>
+                    <a href="{% url 'corporate:detail' p.slug %}" class="btn btn-primary">{% trans "Подробнее" %}</a>
+                </div>
+            {% empty %}
+                <p class="muted">{% trans "Продукты добавляются в админ-панели." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

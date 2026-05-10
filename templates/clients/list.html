@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Частным клиентам" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <h1 class="section-title">{% trans "Частным клиентам" %}</h1>
+        <p class="section-subtitle">{% trans "Защита для вас, вашей семьи и имущества" %}</p>
+
+        <div class="about-block" style="margin-bottom:30px">
+            <p>Мы заботимся о своих клиентах и предлагаем им комплексную защиту имущественных
+            интересов, жизни, здоровья и путешествий. Вы можете застраховать отделку, имущество,
+            квартиру или дом, оформить накопительный план, а также страховку для поездок за рубеж.</p>
+        </div>
+
+        <div class="cards-grid">
+            {% for p in products %}
+                <div class="card">
+                    {% if p.kind == 'life' %}
+                        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'travel' %}
+                        <img src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'property' %}
+                        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% elif p.kind == 'health' %}
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=70" alt="{{ p.title }}" style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:12px">
+                    {% endif %}
+                    <h3>{{ p.title }}</h3>
+                    <p>{{ p.short_description }}</p>
+                    <div class="price">{% trans "От" %} <span class="accent">{{ p.price_from }} сом</span></div>
+                    <a href="{% url 'clients:detail' p.slug %}" class="btn btn-primary">{% trans "Подробнее" %}</a>
+                </div>
+            {% empty %}
+                <p class="muted">{% trans "Продукты добавляются в админ-панели." %}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

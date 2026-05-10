@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Вход" %}{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="form-card">
+            <h2>{% trans "Вход в личный кабинет" %}</h2>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-row">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}{{ field.errors }}{% endif %}
+                    </div>
+                {% endfor %}
+                {% if form.non_field_errors %}<div class="flash flash-error">{{ form.non_field_errors }}</div>{% endif %}
+                <button type="submit" class="btn btn-primary">{% trans "Войти" %}</button>
+            </form>
+            <p style="margin-top:18px" class="muted">{% trans "Нет аккаунта?" %} <a href="{% url 'accounts:register' %}">{% trans "Зарегистрироваться" %}</a></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

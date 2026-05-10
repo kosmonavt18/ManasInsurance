@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<section class="section">
+    <div class="container" style="text-align:center">
+        <h1 class="section-title">{% trans "Спасибо!" %} ✅</h1>
+        <p class="section-subtitle">{% trans "Ваша заявка принята. Мы свяжемся с вами в течение рабочего дня." %}</p>
+        <a href="{% url 'core:home' %}" class="btn btn-primary">{% trans "На главную" %}</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'accounts:profile' %}" class="btn btn-ghost">{% trans "Мои заявки" %}</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
