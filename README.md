@@ -35,7 +35,7 @@
    ```bash
    python manage.py migrate
    ```
-4. (Опционально) загрузите демо‑данные (файл `fixtures/demo.json` уже в репозитории):
+4. (Опционально) загрузите демо‑данные (если доступен файл `fixtures/demo.json`):
    ```bash
    python manage.py loaddata fixtures/demo.json
    ```
@@ -63,4 +63,3 @@
 
 - База данных по умолчанию — `db.sqlite3` в корне проекта.
 - Медиа‑файлы сохраняются в папку `media/`.
-- Для продакшена понадобятся `collectstatic` и настройка окружения.
