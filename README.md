@@ -35,15 +35,11 @@
    ```bash
    python manage.py migrate
    ```
-4. (Опционально) загрузите демо-данные (если доступен файл `fixtures/demo.json`):
-   ```bash
-   python manage.py loaddata fixtures/demo.json
-   ```
-5. (Опционально) создайте суперпользователя:
+4. (Опционально) создайте суперпользователя:
    ```bash
    python manage.py createsuperuser
    ```
-6. Запустите сервер разработки:
+5. Запустите сервер разработки:
    ```bash
    python manage.py runserver
    ```
